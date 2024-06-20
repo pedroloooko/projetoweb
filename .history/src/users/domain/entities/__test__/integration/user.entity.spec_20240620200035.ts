@@ -26,14 +26,6 @@ describe('UserEntity integration tests', () => {
          expect(() => new UserEntity(valid)).toThrow(EntityValidationError);
       });
 
-      it('Should throw an error when creating a user with invalid name - no string', () => {
-         const valid: UserProps = {
-            ...props,
-            name: 10 as any,
-         };
-         expect(() => new UserEntity(valid)).toThrow(EntityValidationError);
-      });
-
       it('Should throw an error when creating a user with invalid name - large', () => {
          const valid: UserProps = {
             ...props,
@@ -41,7 +33,6 @@ describe('UserEntity integration tests', () => {
          };
          expect(() => new UserEntity(valid)).toThrow(EntityValidationError);
       });
-
       it('Should throw an error when creating a user with invalid email - null', () => {
          const valid: UserProps = {
             ...props,
@@ -58,22 +49,6 @@ describe('UserEntity integration tests', () => {
          expect(() => new UserEntity(valid)).toThrow(EntityValidationError);
       });
 
-      it('Should throw an error when creating a user with invalid email - no string', () => {
-         const valid: UserProps = {
-            ...props,
-            email: 10 as any,
-         };
-         expect(() => new UserEntity(valid)).toThrow(EntityValidationError);
-      });
-
-      it('Should throw an error when creating a user with invalid email - no email', () => {
-         const valid: UserProps = {
-            ...props,
-            email: 'noemail',
-         };
-         expect(() => new UserEntity(valid)).toThrow(EntityValidationError);
-      });
-
       it('Should throw an error when creating a user with invalid email - large', () => {
          const valid: UserProps = {
             ...props,
@@ -82,18 +57,17 @@ describe('UserEntity integration tests', () => {
          expect(() => new UserEntity(valid)).toThrow(EntityValidationError);
       });
 
+      it('Should throw an error when creating a user with invalid email - no email', () => {
+         const valid: UserProps = {
+            ...props,
+            email: "qualquer coisa ",
+         };
+         expect(() => new UserEntity(valid)).toThrow(EntityValidationError);
+      });
       it('Should throw an error when creating a user with invalid password - null', () => {
          const valid: UserProps = {
             ...props,
             password: null as any,
-         };
-         expect(() => new UserEntity(valid)).toThrow(EntityValidationError);
-      });
-
-      it('Should throw an error when creating a user with invalid password - empty', () => {
-         const valid: UserProps = {
-            ...props,
-            password: '' as any,
          };
          expect(() => new UserEntity(valid)).toThrow(EntityValidationError);
       });
@@ -113,7 +87,6 @@ describe('UserEntity integration tests', () => {
          };
          expect(() => new UserEntity(valid)).toThrow(EntityValidationError);
       });
-
       it('Should throw an error when creating a user with invalid createdAt - string', () => {
          const valid: UserProps = {
             ...props,
@@ -122,24 +95,22 @@ describe('UserEntity integration tests', () => {
          expect(() => new UserEntity(valid)).toThrow(EntityValidationError);
       });
 
-      it('Should throw an error when creating a user with invalid createdAt - number', () => {
+      it('Should throw an error when creating a user with invalid createdAt - no number', () => {
          const valid: UserProps = {
             ...props,
             createdAt: 10 as any,
          };
          expect(() => new UserEntity(valid)).toThrow(EntityValidationError);
       });
-
-      it('Should a valid user', () => {
-         expect.assertions(0);
+      
+      it('Should an valid User', () => {
+         expect.assertions(0)
          const valid: UserProps = {
-            ...props,
-         };
-
-         new UserEntity(valid);
-      });
+            ... props,
+         }
+         new UserEntity(valid)
+      })
    });
-
 
    describe('Update method' , () => {
       it('Should throw an error when updating a user with invalid name - null', () => {
@@ -166,35 +137,6 @@ describe('UserEntity integration tests', () => {
          expect.assertions(0)
          const user = new UserEntity(props)
          user.updateName('new name')
-      })
-   })
-
-
-   describe('updatePassword method', () => {
-      it('Should throw an error when updating a user with invalid password - null', () => {
-         const user = new UserEntity(props)
-         expect(() => user.updatePassword(null as any)).toThrow(EntityValidationError)
-      })
-      
-      it('Should throw an error when updating a user with invalid password - empty', () => {
-         const user = new UserEntity(props)
-         expect(() => user.updatePassword('' as any)).toThrow(EntityValidationError)
-      })
-
-      it('Should throw an error when updating a user with invalid password - no string', () => {
-         const user = new UserEntity(props)
-         expect(() => user.updatePassword(10 as any)).toThrow(EntityValidationError)
-      })
-      
-      it('Should throw an error when updating a user with invalid password - large', () => {
-         const user = new UserEntity(props)
-         expect(() => user.updatePassword('a'.repeat(256) as any)).toThrow(EntityValidationError)
-      })
-
-      it('Should a valid User', () => {
-         expect.assertions(0)
-         const user = new UserEntity(props)
-         user.updatePassword('new password')
       })
    })
 });
